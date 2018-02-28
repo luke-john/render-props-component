@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "removeComments": false,
+    "sourceMap": true,
+    "inlineSources": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "jsx": "react",
+    "target": "es6",
+    "sourceRoot": "/",
+    "declaration": true,
+    "baseUrl": "./src",
+    "lib": ["dom", "es6"],
+    "typeRoots": ["node_modules/@types", "@types"],
+    "noEmit": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true
+  },
+  "exclude": ["node_modules", "build", "src/setup-tests.ts"]
+}
