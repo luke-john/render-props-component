@@ -1,6 +1,6 @@
-# Render Props Component creator
+# Render Props Component
 
-## Why
+A tool to help create testable, maintainable render prop components.
 
 I've been enjoying using render props lately and wanted to play with the concept.
 
@@ -12,6 +12,9 @@ It should also be fairly easy to add simple to reason about ssr support to the a
 const ExampleCounter = renderProps({
   initialState: { count: 0 },
   createAction: ({ props, state }) => action => {
+    const currentCount = state.count || 0
+    const changeValue = props.changeValue || 1
+
     switch(action) {
       case 'increment':
         return { count: state.count + 1 }  
@@ -38,6 +41,11 @@ export const Test: React.SFC = props => {
   )
 }
 ```
+
+### online editable examples
+
+* codesandbox (javascript): https://codesandbox.io/s/mzwq2lm97x
+* stackblitz (typescript): https://codesandbox.io/s/mzwq2lm97x
 
 ## renderProps options
 
