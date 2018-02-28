@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { mount } from 'enzyme'
 
-import { artist } from '.'
+import renderPropsComponent from '.'
 
 export interface Props {
   enabled?: boolean
@@ -11,24 +11,27 @@ export interface State {
   count: number
 }
 
-export type Action = {
-  type: 'increment'
-}
+export type Action = 'increment' | 'decrement'
 
 export type Data = {
   countText: string
 }
 
-const ExampleCounter = artist<Props, State, Action, Data>({
+const ExampleCounter = renderPropsComponent<Props, State, Action, Data>({
   initialState: {
     count: 0,
   },
   createAction: ({ props, state }) => action => {
-    if (action.type === 'increment') {
-      return { count: state.count ? state.count + 1 : 1 }
-    }
+    const currentCount = state.count || 0
 
-    return {}
+    switch (action) {
+      case 'increment':
+        return { count: currentCount + 1 }
+      case 'decrement':
+        return { count: currentCount - 1 }
+      default:
+        return {}
+    }
   },
   getData: ({ props, state }) => ({ countText: `Count: ${state.count}` }),
 })
@@ -37,13 +40,13 @@ describe('Example', () => {
   it('example mounts', () => {
     mount(
       <ExampleCounter>
-        {renderProps => {
-          return (
-            <div onClick={() => renderProps.action({ type: 'increment' })}>
-              {renderProps.countText}
-            </div>
-          )
-        }}
+        {({ countText, action }) => (
+          <div>
+            {countText}
+            <button onClick={() => action('increment')}>+</button>
+            <button onClick={() => action('decrement')}>-</button>
+          </div>
+        )}
       </ExampleCounter>,
     )
   })

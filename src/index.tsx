@@ -1,14 +1,5 @@
 import * as React from 'react'
 
-/*
-didMount({ state, setState, props, forceUpdate })
-shouldUpdate({ state, props, nextProps, nextState })
-didUpdate({ state, setState, props, forceUpdate, prevProps, prevState })
-willUnmount({ state, props })
-children({ state, setState, props, forceUpdate })
-render({ state, setState, props, forceUpdate })
-*/
-
 export interface LifecycleProps<Props, State> {
   state: State
   props: Readonly<Props>
@@ -16,7 +7,7 @@ export interface LifecycleProps<Props, State> {
   forceUpdate: () => void
 }
 
-export type ArtistOptions<
+export type RenderPropsComponentOptions<
   // tslint:disable-next-line no-any
   ComponentProps,
   State,
@@ -62,8 +53,18 @@ export type ArtistOptions<
   ) => RenderData
 }
 
-export const artist = function<ComponentProps, State, Action, RenderData>(
-  options: ArtistOptions<ComponentProps, Partial<State>, Action, RenderData>,
+const renderPropsComponent = function<
+  ComponentProps,
+  State,
+  Action,
+  RenderData
+>(
+  options: RenderPropsComponentOptions<
+    ComponentProps,
+    Partial<State>,
+    Action,
+    RenderData
+  >,
 ) {
   type Props = ComponentProps & {
     children: (
@@ -71,7 +72,10 @@ export const artist = function<ComponentProps, State, Action, RenderData>(
     ) => React.ReactNode
   }
 
-  return class Painting extends React.Component<Props, Partial<State>> {
+  return class RenderPropsComponent extends React.Component<
+    Props,
+    Partial<State>
+  > {
     constructor(props: Props) {
       super(props)
 
@@ -142,3 +146,5 @@ export const artist = function<ComponentProps, State, Action, RenderData>(
     }
   }
 }
+
+export default renderPropsComponent
