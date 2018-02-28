@@ -1,12 +1,13 @@
 {
   "name": "render-props-component",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "homepage": "https://github.com/luke-john/render-props-component",
   "main": "dist/index.js",
   "typings": "typings/index.d.ts",
   "license": "MIT",
   "scripts": {
     "precommit": "lint-staged",
-    "pre:build": "rimraf build && copy package.json ./build",
+    "pre:build": "rimraf build && copy package.json README.md ./build",
     "build:main":
       "tsc --project ./tsconfig.build.json --outDir ./build/dist --declarationDir ./build/typings",
     "build": "yarn run pre:build && yarn run build:main",
